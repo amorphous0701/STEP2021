@@ -20,13 +20,13 @@ int score(string s){
     int count = 0;
     for(int i=0;i<n;i++){
         if(string("aehinorst").find(s.at(i))!=-1){
-            count+=1;continue;
+            count+=1;
         }else if(string("cdlmu").find(s.at(i))!=-1){
-            count+=2;continue;
-        }else if(string("bfgpvmy").find(s.at(i))!=-1){
-            count+=3;continue;
+            count+=2;
+        }else if(string("bfgpvwy").find(s.at(i))!=-1){
+            count+=3;
         }else if(string("jkqxz").find(s.at(i))!=-1){
-            count+=4;continue;
+            count+=4;
         }
     }
     return count;

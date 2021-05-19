@@ -2,7 +2,7 @@
 using namespace std;
 
 
-string binary_search(string s, vector<vector<string>> lis)
+string find_anagram(string s, vector<vector<string>> lis)
 {
     for (int i = 0; i <lis.size(); i++) {
         string S=s;
@@ -18,13 +18,14 @@ string binary_search(string s, vector<vector<string>> lis)
             return lis_s;
         }
     }
+    return "";
 }
 
 int main()
 {
     ifstream ifs("words2.txt"); //得点ー単語のリスト、得点降順にソート済み
-    ifstream ifs_text("medium.txt");//入力する単語リスト
-    ofstream ofs("medium2_answer.txt");//出力する答え
+    ifstream ifs_text("large.txt");//入力する単語リスト
+    ofstream ofs("large_answer.txt");//出力する答え
     vector<vector<string>> lis;
     while (!ifs.eof()) {
         string ana, mot;
@@ -36,8 +37,8 @@ int main()
     while(!ifs_text.eof()){
         string data;ifs_text>>data;
         if(data.length()>0){
-            ofs<<binary_search(data,lis)<<endl;
+            ofs<<find_anagram(data,lis)<<endl;
         }
     }
-
+    ofs.close();
 }
