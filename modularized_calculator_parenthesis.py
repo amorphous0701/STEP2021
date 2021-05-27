@@ -1,8 +1,12 @@
 def read_number(line, index):
-  total = 0
   now_operator=""
+  total = 0
+  top_minus = 1
+  if line[index] == '-':
+    top_minus = -1
+    index += 1
   while index < len(line) and line[index].isdigit():
-    number=0
+    number = 0
     while index < len(line) and line[index].isdigit():
       number = number * 10 + int(line[index])
       index += 1
@@ -22,10 +26,17 @@ def read_number(line, index):
     if index < len(line) and line[index] == '*':
       index +=1
       now_operator ="*"
+      if line[index]== '-':
+        number *= -1
+        index +=1
     if index < len(line) and line[index] == '/':
       index += 1
       now_operator = "/"
-    total = number
+      if line[index]== '-':
+        number *= -1
+        index +=1
+    total = number * top_minus
+    top_minus = 1
 
   token = {'type': 'NUMBER', 'number': total}
   return token, index
@@ -40,7 +51,6 @@ def read_minus(line, index):
   token = {'type': 'MINUS'}
   return token, index + 1
 
-
 def tokenize(line):
   tokens = []
   index = 0
@@ -50,7 +60,10 @@ def tokenize(line):
     elif line[index] == '+':
       (token, index) = read_plus(line, index)
     elif line[index] == '-':
-      (token, index) = read_minus(line, index)
+      if index == 0:
+        (token, index) = read_number(line, index)
+      else:
+        (token, index) = read_minus(line, index)
     else:
       print('Invalid character found: ' + line[index])
       exit(1)
@@ -74,9 +87,33 @@ def evaluate(tokens):
     index += 1
   return answer
 
+def new_line(line,max_p,check):
+  if max_p==0 and check==len(line)-1:
+    return line[max_p+1:check]
+  elif max_p==0:
+    return str(evaluate(tokenize(line[max_p+1:check])))+line[check+1:]
+  elif check==len(line)-1:
+    return line[:max_p]+str(evaluate(tokenize(line[max_p+1:check])))
+  else:
+    return line[:max_p]+str(evaluate(tokenize(line[max_p+1:check])))+line[check+1:]
+
+def out_parenthesis(line):
+  max_p=0
+  if line.count("(") != line.count(")"):
+    print('Parenthesis Error')
+    exit(1)
+  while '(' in line :
+    for check in range(len(line)):
+      if line[check]=="(":
+        max_p = check
+      if line[check]==")":
+        line=new_line(line,max_p,check)
+        break
+  return line
 
 def test(line):
-  tokens = tokenize(line)
+  new_line = out_parenthesis(line)
+  tokens = tokenize(new_line)
   actual_answer = evaluate(tokens)
   expected_answer = eval(line)
   if abs(actual_answer - expected_answer) < 1e-8:
@@ -95,7 +132,14 @@ def run_test():
   test("4+3/3")
   test("3*3/9+1-8")
   test("4*3/5+1.8")
-  test("1.3+9-7/2")
+  test("1.3+9.8-7/2*3.2")
+  test("(1+2)/3")
+  test("(1/3+1*4)")
+  test("(9+8)*(1-2)/(2+3)")
+  test("(+1-3)*(-3)/(-1.4)")
+  test("((1-2)/(2.1+3.2))*(-3)/(9.9)")
+  test("((1-2)/3/(2.1+3.2))*(-3)/(9.9)")
+  test("((((1+2))*9))")
   print("==== Test finished! ====\n")
 
 run_test()
