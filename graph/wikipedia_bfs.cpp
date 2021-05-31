@@ -70,8 +70,7 @@ int main()
     read_links(links, "data/links.txt");
 
     string from = "Google";
-    string to = "ジャグリング";
-    //cin>>from>>to;
+    string to = "渋谷";
     string from_number = name_to_number(from, pages);
     string to_number = name_to_number(to, pages);
     bfs_que.push({from_number,0});

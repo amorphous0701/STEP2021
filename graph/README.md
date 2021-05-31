@@ -4,79 +4,24 @@
 
 ### 1. Wikipediaのグラフを使ってなにか面白いことをしてみよう
 
-- 必須："Google"から"渋谷"までを（最短で）たどる方法を探す
+- "Google"から"渋谷"までを（最短で）たどる方法:
+BFSで実装しました。2回移動しましたが、(今は)Googleのwikipediaのページから1回で飛べます。
 - その他なんでも
-    - 例：孤立している隠されたページを探す
-    - 例：ページランクの高いものを探す
+せっかくなのでGoogleとジャグリングまでたどれるか調べようと思いましたが、時間がかかりすぎて結局わかりませんでしたorz
 
 ### 2. 他の人の書いたコードを自分の環境で実行してレビューする
+近々やります！
 
-- スライド参照
-
-## 準備
-
-[wikipedia_data.zip](https://drive.google.com/file/d/1zqtjSb-ZoR4rzVUWZrjNSES5GKJhYmmH/view?usp=sharing) をダウンロードして解凍し、以下のようなディレクトリ構成にしてください。
-
-```
-step_wikipedia-graph
-├── data
-│   ├── graph_small.png
-│   ├── links_small.txt
-│   ├── links.txt
-│   ├── pages_small.txt
-│   └── pages.txt
-├── .gitignore
-├── README.md
-├── wikipedia_sample.cc
-├── wikipedia_sample.py
-└── WikipediaSample.java
-```
-
-## グラフデータ
-
-`data/` に含まれるファイルで、実際に使うものは以下の2つです。
-
-- pages.txt：各ページのidとタイトルのリスト
-- links.txt：各リンクのリンク元とリンク先のリスト
-
-以下の3つはテスト用の小さなグラフを表すデータです。
-
-- pages_small.txt
-- links_small.txt
-- graph_small.png
-
-詳細はスライドを参照してください。
-
-数年前のデータを使っているため、最新の Wikipedia とは異なるリンク構造になっていることに注意してください。
-
-## サンプルコード
-
-データの読み込みを行うサンプルコードを用意しました。サンプルでしかないため、改善できるところもたくさんあるはずです。何か気づいたら自分で書き換えてみてください。
-
-各プログラムを実行すると、Google をタイトルとするページの id が表示されます。
-
-### 実行方法
-
-#### C++
-
-テスト環境: g++ 10.2.1
-
-```shell
-g++ wikipedia_sample.cc && ./a.out
-```
-
-#### Java
-
-テスト環境: JDK 11.0.11
-
-```shell
-javac WikipediaSample.java && java WikipediaSample
-```
-
-#### Python
-
-テスト環境: Python 3.9.2
-
-```shell
-python3 wikipedia_sample.py
-```
+### 3. 各関数の説明
+#### void read_pages(map<string, string>& pages, string path)
+pathにあるデータをpagesに収納する関数。今回の場合pagesには,{ページの名前,ページのID}の状態で収納されている。
+#### void read_links(map<string, set<string>>& links, string path)
+pathにあるデータをlinksに収納する関数。今回の場合linksには{ページのID,{行ける先のID}}が収納されている。
+#### string name_to_number(string name, map<string, string> pages)
+nameに対応するIDをpagesから見つけ、それを返す関数。
+#### vector<string> find_route(string to, map<string, set<string>> links, vector<string> check, queue<Tuple> que)
+BFSを用いてIDがtoと一致するノードを発見するまで探索。
+toは数字の文字列でゴールのIDを示す。linksには{ページのID,{行ける先のID}}が収納されている。checkには既に訪れたところのIDが入っている。queは次にチェックするIDが収められている。
+#### void show(vector<string> path)
+vectorの中身を一つずつ表示するための関数。
+今回はfind_routeで返された経路を表示するために用いている。
