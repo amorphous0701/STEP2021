@@ -6,7 +6,7 @@
 
 - "Google"から"渋谷"までを（最短で）たどる方法:
 BFSで実装しました。2回移動しましたが、(今は)Googleのwikipediaのページから1回で飛べます。
-- その他なんでも
+- その他なんでも:
 せっかくなのでGoogleとジャグリングまでたどれるか調べようと思いましたが、時間がかかりすぎて結局わかりませんでしたorz
 
 ### 2. 他の人の書いたコードを自分の環境で実行してレビューする
@@ -21,7 +21,8 @@ pathにあるデータをlinksに収納する関数。今回の場合linksには
 nameに対応するIDをpagesから見つけ、それを返す関数。
 #### vector<string> find_route(string to, map<string, set<string>> links, vector<string> check, queue<Tuple> que)
 BFSを用いてIDがtoと一致するノードを発見するまで探索。
-toは数字の文字列でゴールのIDを示す。linksには{ページのID,{行ける先のID}}が収納されている。checkには既に訪れたところのIDが入っている。queは次にチェックするIDが収められている。
-#### void show(vector<string> path)
+toは数字の文字列でゴールのIDを示す。linksには{ページのID,{行ける先のID}}が収納されている。
+checkには既に訪れたところのIDが入っている。queは次にチェックするIDが収められている。
+#### void show(vector<string> path)  * なぜかわかりませんがvectorの後のstringが消えてしまいます。
 vectorの中身を一つずつ表示するための関数。
 今回はfind_routeで返された経路を表示するために用いている。
