@@ -1,8 +1,8 @@
 #include <bits/stdc++.h>
 using namespace std;
-using Tuple=tuple<string,int,vector<string>>;
+using Tuple = tuple<string, int, vector<string>>;
 
-void read_pages(map<string, string>& pages, string path) //pathのデータをpagesに収納
+void read_pages(map<string, string>& pages, string path)  //pathのデータをpagesに収納
 {
     ifstream page_file(path);
     string f_data;
@@ -14,7 +14,7 @@ void read_pages(map<string, string>& pages, string path) //pathのデータをpa
     }
 }
 
-void read_links(map<string, set<string>>& links, string path) //pathのデータをlinksに収納
+void read_links(map<string, set<string>>& links, string path)  //pathのデータをlinksに収納
 {
     ifstream link_file(path);
     string l_data;
@@ -26,7 +26,7 @@ void read_links(map<string, set<string>>& links, string path) //pathのデータ
     }
 }
 
-string name_to_number(string name, map<string, string> pages) //pagesを用いてnameに対応するIDを返す
+string name_to_number(string name, map<string, string> pages)  //pagesを用いてnameに対応するIDを返す
 {
     if (pages.find(name) != pages.end()) {
         return pages[name];
@@ -34,7 +34,7 @@ string name_to_number(string name, map<string, string> pages) //pagesを用い�
     return "";
 }
 
-vector<string> find_route(string to, map<string, set<string>> links, vector<string> check, queue<Tuple> que) //toまでの経路探索。経路を返す。
+vector<string> find_route(string to, map<string, set<string>> links, vector<string> check, queue<Tuple> que)  //toまでの経路探索。経路を返す。
 {
     while (!que.empty()) {
         Tuple top = que.front();
@@ -47,26 +47,27 @@ vector<string> find_route(string to, map<string, set<string>> links, vector<stri
         top_path.push_back(top_name);
 
         if (top_name == to) {
-            cout << "移動回数は"<<top_index<<"です。"<<endl;
+            cout << "移動回数は" << top_index << "です。" << endl;
             return top_path;
         }
 
         for (auto i = links[top_name].begin(); i != links[top_name].end(); i++) {
             if (find(check.begin(), check.end(), *i) == check.end()) {
-                que.push({*i,top_index+1,top_path});
+                que.push({*i, top_index + 1, top_path});
             }
         }
     }
-    cout<<"NOT FOUND"<<endl;
+    cout << "NOT FOUND" << endl;
     return {""};
 }
 
-void show(vector<string> path){ //経路を表示。
-    cout<<"たどった経路は"<<endl;
-    for(int i=0;i<path.size();i++){
-        cout<<path[i]<<endl;
+void show(vector<string> path)
+{  //経路を表示。
+    cout << "たどった経路は" << endl;
+    for (int i = 0; i < path.size(); i++) {
+        cout << path[i] << endl;
     }
-    cout<<"です。"<<endl;
+    cout << "です。" << endl;
 }
 
 int main()
@@ -83,9 +84,9 @@ int main()
     string to = "渋谷";
     string from_number = name_to_number(from, pages);
     string to_number = name_to_number(to, pages);
-    bfs_que.push({from_number,0,{}}); //スタート地点はあらかじめキューにセットしておく。
+    bfs_que.push({from_number, 0, {}});  //スタート地点はあらかじめキューにセットしておく。
     vector<string> path = find_route(to_number, links, check, bfs_que);
     show(path);
-    
+
     return 0;
 }
