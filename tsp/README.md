@@ -16,7 +16,7 @@ greedyでの結果が最短だからといって、CHANGEを施しても最短�
 
 ![Image 1](img/image1.png)
 i-i+1間距離+j-j+1間距離がi-j間距離+i+1-j+1間距離よりも長ければ、図のようにつなぎかえる。
-授業中に示されたことを実行しただけだが、実装に詰まってかなり調べてしまいました。すみません。
+授業中に示されたことを実行しただけだが、実装に詰まってかなり調べてしまった。
 
 ## CHANGE2
 
@@ -32,41 +32,15 @@ i-i+1間距離+i+1-i+2間距離+j-j+1間距離+j+1-j+2間距離がi-j+1間距離
 それはともかく、このパートの一部の場合分けで、改善するどころかスコアが悪化したのに何が悪いかわからないという問題が起こっている。
 それだけはどうにかしたい。(きちんとできていたら改悪するわけはない。)
 
-### Visualizer
-
-The demo page of the visualizer is
-[here](https://hkocinneide.github.io/google-step-tsp/visualizer/build/default/).
-
-The assignment includes a helper Web page,
-`visualizer/build/default/index.html`, which visualizes your solutions. You need
-to run a HTTP server on your local machine to access the visualizer. Any HTTP
-server is okay. If you are not sure how to run a web server, use the following
-command to run the HTTP server. Make sure that you are in the top directory of
-the assignment before running the command.
-
-```shellsession
-python -m http.server # For Python 3
-python -m SimpleHTTPServer 8000 # If you don’t want to install Python 3
-```
-
-Then, open a browser and navigate to the
-[http://localhost:8000/visualizer/build/default/](http://localhost:8000/visualizer/build/default/).
-
-Visualizer was only tested by Google Chrome. Using the visualizer is up-to you.
-You don’t have to use the visualizer to finish the assignment. The visualizer is
-provided for the purpose of helping you understand the problem.
-
-See
-[GitHub Help](https://help.github.com/articles/configuring-a-publishing-source-for-github-pages/)
-to know how to enable GitHub pages on your repository.
+## Visualizer
+よくわからなかったのでなし。
 
 ## 反省
-・パーツに分けるのを忘れた。  
+・パーツに分けるのを忘れていた。  
 さあ書くぞ！となっていきなり書き始めてしまった。多分具体的に何を書くか決める前に取り合えず書こうとしたのが一つの原因。  
-始める前に大枠を決めてから(関数の役割を決めてから)書き始めるようにしたい。(意識しないとすぐ忘れる。)
-とりあえずコメントを書いたら多少見やすくはなったが、さらに改善するときにメンテナンスがしにくくなりそう。  
+始める前に大枠を決めてから(関数の役割を決めてから)書き始めるようにしたい。(意識しないとすぐ忘れる。)。  
   
 ・寝ている間に働いてくれないパソコン。  
-パソコンに自分が寝ているときに働かせようとしたのにスリープして働いてくれない。スリープしない設定にしたはずなのに。  
-一方で寝てすぐに実行が終わった場合パソコンがつきっぱなしになって環境に悪い。パソコンにも悪い。
+パソコンに自分が寝ているときに働かせようとしたのにスリープして働いてくれない。スリープしない設定にしたはずなのに。(追記：働いてくれるようになった！)  
+一方で寝てすぐに実行が終わった場合パソコンがつきっぱなしになって環境に悪い。パソコンにも悪い。  
 プログラムの実行が終わったらスリープするプログラムを書けたらいいなと思った。
