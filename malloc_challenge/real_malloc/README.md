@@ -23,3 +23,16 @@ gcc -Wall -O3 -lm -o malloc_challenge.bin main.c malloc.c simple_malloc.c
 ## Acknowledgement
 
 This work is based on [xharaken's malloc_challenge.c](https://github.com/xharaken/step2/blob/master/malloc_challenge.c). Thank you haraken-san!
+
+
+## 動くと思ったのに
+  while (metadata_check && metadata_check->size >= 8) {
+    if(metadata_check->size < min_size && metadata_check->size >= size){
+      min_size = metadata_check->size;
+      metadata = metadata_check;
+    }
+    if(metadata_check->next->size < min_size && metadata_check->next->size >= size){
+      prev = metadata_check;
+    }
+    metadata_check = metadata_check->next;
+  }
